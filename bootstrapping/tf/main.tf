@@ -12,7 +12,7 @@ terraform {
 }
 
 provider "kubernetes" {
-  config_path = "~/.kube/config"
+  config_path = "~/.kube/config-mgmt"
 }
 
 resource "kubernetes_namespace" "argocd" {
@@ -31,6 +31,7 @@ resource "kubectl_manifest" "argocd" {
     ]
     count     = length(data.kubectl_file_documents.argocd.documents)
     yaml_body = element(data.kubectl_file_documents.argocd.documents, count.index)
+    override_namespace = "argocd"
 }
 
 resource "kubernetes_secret" "github_key" {
@@ -46,4 +47,17 @@ resource "kubernetes_secret" "github_key" {
       "url" = "git@github.com:eirik-talberg/kubernetes"
       "sshPrivateKey" = "${file("~/.ssh/id_rsa")}"
     }
+}
+
+data "kubectl_file_documents" "argocd_mgmt_apps" {
+  content = file("../argo-cd/common-apps/mgmt-apps.yaml")
+}
+
+resource "kubectl_manifest" "argocd_bootstrapping_mgmt_apps" {
+  depends_on = [
+    data.kubectl_file_documents.argocd_mgmt_apps
+  ]
+  count     = length(data.kubectl_file_documents.argocd_bootstrapper.documents)
+  yaml_body = element(data.kubectl_file_documents.argocd_bootstrapper.documents, count.index)
+  override_namespace = "argocd"
 }

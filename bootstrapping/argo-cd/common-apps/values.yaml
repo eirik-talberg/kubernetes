@@ -1,0 +1,10 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: git@github.com:eirik-talberg/kubernetes
+
+apps:
+  kong:
+    repoURL: https://charts.konghq.com
+    version: 2.13.1

@@ -12,5 +12,5 @@ spec:
   project: default
   source:
     path: infrastructure/cert-manager
-    repoURL: git@github.com:eirik-talberg/kubernetes
+    repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: HEAD

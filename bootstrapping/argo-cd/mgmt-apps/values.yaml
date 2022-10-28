@@ -1,0 +1,5 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: git@github.com:eirik-talberg/kubernetes

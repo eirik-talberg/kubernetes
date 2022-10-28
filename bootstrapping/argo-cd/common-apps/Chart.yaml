@@ -1,6 +1,6 @@
 apiVersion: v2
-name: argo-cd-infrastructure
-description: Helm chart for MGMT Staff
+name: common-apps
+description: Common apps for k8s-clusters 
 
 # A chart can be either an 'application' or a 'library' chart.
 #
