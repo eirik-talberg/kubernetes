@@ -1,16 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager
-  namespace: argocd
+  name: argocd
+  namespace: cert-manager
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: argocd
+    namespace: cert-manager
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
     path: infrastructure/cert-manager
     repoURL: {{ .Values.spec.source.repoURL }}
-    targetRevision: HEAD
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+  syncPolicy:
+    automated: {}

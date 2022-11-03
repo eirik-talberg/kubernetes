@@ -1,5 +1,5 @@
 apiVersion: v2
-name: kong
+name: cert-manager
 
 type: application
 

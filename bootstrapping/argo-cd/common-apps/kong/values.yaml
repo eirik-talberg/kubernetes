@@ -1,9 +1,0 @@
-ingressController:
-  installCRDs: false
-  rbac:
-    create: false
-# Temporary workaround: disable HTTP2 on admin endpoint
-# https://github.com/Kong/kubernetes-ingress-controller/issues/2435
-admin:
-  tls:
-    parameters: []

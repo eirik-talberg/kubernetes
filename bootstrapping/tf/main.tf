@@ -8,30 +8,34 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = ">= 2.0.0"
     }
+    helm = {
+      source = "hashicorp/helm"
+      version = ">= 2.7.1"
+    }
+  }
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config-k3s-mgmt"
   }
 }
 
 provider "kubernetes" {
-  config_path = "~/.kube/config-mgmt"
+  config_path = "~/.kube/config-k3s-mgmt"
 }
 
-resource "kubernetes_namespace" "argocd" {
-    metadata {
-      name = "argocd"
-    }
-}
 
-data "kubectl_file_documents" "argocd" {
-    content = file("../argo-cd/install.yaml")
-}
-
-resource "kubectl_manifest" "argocd" {
-    depends_on = [
-      data.kubectl_file_documents.argocd
-    ]
-    count     = length(data.kubectl_file_documents.argocd.documents)
-    yaml_body = element(data.kubectl_file_documents.argocd.documents, count.index)
-    override_namespace = "argocd"
+resource "helm_release" "argo_cd" {
+  name = "argocd"
+  repository = "https://argoproj.github.io/argo-helm"
+  version = "5.8.5"
+  chart = "argo-cd"
+  namespace = "argocd"
+  create_namespace = true
+  values = [
+    "${file("../argo-cd/values.yaml")}"
+  ]
 }
 
 resource "kubernetes_secret" "github_key" {
@@ -49,15 +53,97 @@ resource "kubernetes_secret" "github_key" {
     }
 }
 
-data "kubectl_file_documents" "argocd_mgmt_apps" {
-  content = file("../argo-cd/common-apps/mgmt-apps.yaml")
+resource "kubernetes_manifest" "mgmt-apps" {
+  manifest = {
+    "apiVersion" ="argoproj.io/v1alpha1"
+    "kind" = "Application"
+    metadata = {
+      "name" = "mgmt-apps"
+      "namespace" = "argocd"
+      "finalizers" = [
+        "resources-finalizer.argocd.argoproj.io"
+      ]
+    }
+    "spec" = {
+      "destination" = {
+        "namespace" = "argocd"
+        "server": "https://kubernetes.default.svc"
+      }
+      "project" = "default"
+      "source" = {
+        "path" = "bootstrapping/argo-cd/clusters/mgmt"
+        "repoURL" = "git@github.com:eirik-talberg/kubernetes"
+        "targetRevision": "HEAD"
+      }
+      "syncPolicy" = {
+        "automated" = {}
+      }
+    }
+  }
 }
 
-resource "kubectl_manifest" "argocd_bootstrapping_mgmt_apps" {
-  depends_on = [
-    data.kubectl_file_documents.argocd_mgmt_apps
-  ]
-  count     = length(data.kubectl_file_documents.argocd_bootstrapper.documents)
-  yaml_body = element(data.kubectl_file_documents.argocd_bootstrapper.documents, count.index)
-  override_namespace = "argocd"
+/**
+resource "kubernetes_manifest" "common-apps" {
+  manifest = {
+    "apiVersion" ="argoproj.io/v1alpha1"
+    "kind" = "ApplicationSet"
+    metadata = {
+      "name" = "common-apps"
+      "namespace" = "argocd"
+    }
+    "spec" = {
+      "generators" = [
+          {
+            "matrix" = {
+              "generators" = [
+                  {
+                    "git" = {
+                      "repoURL" = "git@github.com:eirik-talberg/kubernetes"
+                      "revision" = "HEAD"
+                      "directories" = [
+                        {
+                          "path" = "bootstrapping/argo-cd/common-apps/*"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "list"= {
+                      "elements" = [
+                        {
+                          "cluster" = "mgmt"
+                          "url" = "https://kubernetes.default.svc"
+                          "values" = {
+                            "project" = "default"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              
+            }
+          }
+        ]
+      
+      "template" = {
+        "metadata" = {
+          "name" = "{{ .path.basename }}-{{ .name }}"
+        }
+        "spec" = {
+          "project" = "default"
+          "source" = {
+            "repoURL" = "git@github.com:eirik-talberg/kubernetes"
+            "targetRevision" = "HEAD"
+            "path" = "{{ .path.path }}"
+          }
+          "destination" = {
+            "server" = "{{ .url }}"
+            "namespace" = "{{ .path.basename }}"
+          }
+        }
+      }
+    }
+  }
 }
+*/
