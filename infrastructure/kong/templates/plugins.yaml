@@ -1,0 +1,9 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: add-prefix-header
+config: 
+  add:
+    headers:
+    - x-forwarded-prefix:$(headers.x-forwarded-path)
+plugin: request-transformer
