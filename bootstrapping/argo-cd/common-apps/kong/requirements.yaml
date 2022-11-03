@@ -1,0 +1,4 @@
+dependencies:
+  - name: kong
+    version: 2.13.1
+    repository: https://charts.konghq.com
