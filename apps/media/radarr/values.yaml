@@ -19,5 +19,6 @@ ingress:
           - path: /
             service: 
               name: radarr
-              port: 7878
+              port: 
+                number: 7878
           
