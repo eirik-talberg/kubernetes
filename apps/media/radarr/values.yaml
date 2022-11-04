@@ -1,11 +1,12 @@
-env:
-  TZ: Europe/Oslo
-persistence:
-  config:
-    enabled: true
-    type: pvc
-    existingClaim: radarr-config-iscsi
-  media:
-    enabled: true
-    type: pvc
-    existingClaim: radarr-media-nfs
+radarr:
+  env:
+    TZ: Europe/Oslo
+  persistence:
+    config:
+      enabled: true
+      type: pvc
+      existingClaim: radarr-config-iscsi
+    media:
+      enabled: true
+      type: pvc
+      existingClaim: radarr-media-nfs
