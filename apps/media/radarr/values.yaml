@@ -1,0 +1,11 @@
+env:
+  TZ: Europe/Oslo
+persistence:
+  config:
+    enabled: true
+    type: pvc
+    existingClaim: radarr-config-iscsi
+  media:
+    enabled: false
+    #type: pvc
+    #existingClaim: radarr-nfs-video
