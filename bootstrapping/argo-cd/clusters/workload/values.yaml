@@ -1,0 +1,6 @@
+spec:
+  destination:
+    server: https://k3s-workload-server-01.g69.io
+  source:
+    repoURL: git@github.com:eirik-talberg/kubernetes
+    targetRevision: HEAD
