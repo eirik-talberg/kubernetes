@@ -1,6 +1,6 @@
 spec:
   destination:
-    server: https://k3s-workload-server-01:6443
+    server: https://10.0.69.14:6443
   source:
     repoURL: git@github.com:eirik-talberg/kubernetes
     targetRevision: HEAD
