@@ -9,3 +9,11 @@ persistence:
     enabled: false
     #type: pvc
     #existingClaim: radarr-nfs-video
+ingress:
+  enabled: true
+  ingressClassName: "kong"
+  hosts:
+    - host: "radarr.taldev.no"
+      paths:
+        - path: /
+          
