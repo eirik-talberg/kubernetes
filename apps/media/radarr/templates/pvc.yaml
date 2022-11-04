@@ -11,3 +11,17 @@ spec:
     requests:
       storage: 2Gi
   volumeName: radarr-config-iscsi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: radarr-media-nfs
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 1Mi
+  volumeName: radarr-media-nfs

@@ -6,18 +6,6 @@ persistence:
     type: pvc
     existingClaim: radarr-config-iscsi
   media:
-    enabled: false
-    #type: pvc
-    #existingClaim: radarr-nfs-video
-ingress:
-  main:
     enabled: true
-    ingressClassName: "kong"
-    hosts:
-      - host: "radarr.taldev.no"
-        paths:
-          - path: /
-            service: 
-              name: radarr
-              port: "7878"
-          
+    type: pvc
+    existingClaim: radarr-media-nfs
