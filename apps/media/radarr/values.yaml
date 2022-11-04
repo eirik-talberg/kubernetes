@@ -17,4 +17,7 @@ ingress:
       - host: "radarr.taldev.no"
         paths:
           - path: /
+            service: 
+              name: radarr
+              port: 7878
           
