@@ -12,6 +12,7 @@ spec:
     iqn: iqn.2022-11.io.g69:radarr
     lun: 0
     fsType: 'ext4'
+    initiatorName: iqn.2022-11.io.g69:radarr-config
 ---
 apiVersion: v1
 kind: PersistentVolume
