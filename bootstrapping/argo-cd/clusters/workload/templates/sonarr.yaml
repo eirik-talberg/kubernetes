@@ -18,7 +18,7 @@ spec:
     targetRevision: {{ .Values.sonarr.version }}
     helm:
       valueFiles:
-        - ../values-sonarr.yaml
+        - values-sonarr.yaml
 ---
 apiVersion: v1
 kind: PersistentVolume
