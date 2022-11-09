@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: https://charts.truecharts.org
     chart: sonarr
-    targetRevision: 11.0.49
+    targetRevision: {{ .Values.sonarr.version }}
     helm:
       valueFiles:
         - ../values-sonarr.yaml
