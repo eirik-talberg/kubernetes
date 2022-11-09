@@ -6,6 +6,8 @@ metadata:
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
+  syncPolicy:
+    automated: {}
   destination:
     namespace: media
     server: {{ .Values.spec.destination.server }}
