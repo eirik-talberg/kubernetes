@@ -14,7 +14,7 @@ spec:
   project: default
   source:
     repoURL: https://charts.truecharts.org
-    chart: TrueCharts/sonarr
+    chart: sonarr
     targetRevision: {{ .Values.sonarr.version }}
     helm:
       valueFiles:

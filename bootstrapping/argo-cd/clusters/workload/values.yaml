@@ -5,7 +5,7 @@ spec:
     repoURL: git@github.com:eirik-talberg/kubernetes
     targetRevision: HEAD
 sonarr:
-  version: 11.0.48
+  version: 11.0.45
   storage:
     iscsi:
       targetPortal: 10.0.69.10:3260
@@ -14,4 +14,3 @@ sonarr:
     nfs:
       server: 10.0.69.10
       path: "/mnt/user/Video/Serier"
-    
