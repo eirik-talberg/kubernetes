@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sonarr
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: media
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    repoURL: https://charts.truecharts.org
+    chart: sonarr
+    targetRevision: 11.0.49
+    helm:
+      valuesFiles:
+        - ../values-sonarr.yaml
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: radarr-config-iscsi
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  iscsi:
+    targetPortal: {{ .Values.sonarr.iscsi.targetPortal }}
+    iqn: {{ .Values.sonarr.storage.iscsi.iqn }}
+    lun: 0
+    fsType: "ext4"
+    initiatorName: {{ .Values.sonarr.storage.iscsi.initiatorName }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sonarr-media-nfs
+  namespace: media
+spec:
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server: {{ .Values.sonarr.storage.nfs.server }}
+    path: {{ .Values.sonarr.storage.nfs.path }}
+  mountOptions:
+    - nfsvers=3
