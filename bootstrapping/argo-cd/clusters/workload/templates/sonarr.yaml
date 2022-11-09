@@ -28,7 +28,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   iscsi:
-    targetPortal: {{ .Values.sonarr.iscsi.targetPortal }}
+    targetPortal: {{ .Values.sonarr.storage.iscsi.targetPortal }}
     iqn: {{ .Values.sonarr.storage.iscsi.iqn }}
     lun: 0
     fsType: "ext4"
