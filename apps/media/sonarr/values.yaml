@@ -1,0 +1,20 @@
+sonarr:
+  TZ: Europe/Oslo
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: kong
+      hosts:
+        - host: "sonarr.taldev.no"
+          paths:
+            - path: /
+              service:
+                name: sonarr
+                port: 8989
+  persistence:
+    config:
+      spec:
+        volumeName: sonarr-config-iscsi
+    media:
+      spec:
+        volumeName: sonarr-media-nfs

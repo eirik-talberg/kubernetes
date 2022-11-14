@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: radarr-config-iscsi
+  name: sonarr-config-iscsi
 spec:
   capacity:
     storage: 2Gi
@@ -9,15 +9,15 @@ spec:
     - ReadWriteOnce
   iscsi:
     targetPortal: 10.0.69.10:3260
-    iqn: iqn.2022-11.io.g69:radarr
+    iqn: iqn.2018-11.no.taldev.unraid:sonarr-config
     lun: 0
-    fsType: 'ext4'
-    initiatorName: iqn.2022-11.io.g69:radarr-config
+    fsType: "ext4"
+    initiatorName: iqn.2018-11.no.taldev.k8s:sonarr-config
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: radarr-media-nfs
+  name: sonarr-media-nfs
   namespace: media
 spec:
   capacity:
@@ -26,6 +26,6 @@ spec:
     - ReadWriteOnce
   nfs:
     server: 10.0.69.10
-    path: "/mnt/user/Video/Filmer"
+    path: /mnt/user/Video/Serier
   mountOptions:
     - nfsvers=3
