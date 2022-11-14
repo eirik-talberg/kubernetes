@@ -6,15 +6,8 @@ sonarr:
       ingressClassName: kong
       hosts:
         - host: "sonarr.taldev.no"
-          paths:
-            - path: /
-              service:
-                name: sonarr
-                port: 8989
   persistence:
     config:
-      spec:
-        volumeName: sonarr-config-iscsi
+      volumeName: sonarr-config-iscsi
     media:
-      spec:
-        volumeName: sonarr-media-nfs
+      volumeName: sonarr-media-nfs
