@@ -13,41 +13,8 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    repoURL: https://charts.truecharts.org
-    chart: sonarr
-    targetRevision: {{ .Values.sonarr.version }}
-    helm:
-      valueFiles:
-        - values-sonarr.yaml
+    path: apps/media/sonarr
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: radarr-config-iscsi
-spec:
-  capacity:
-    storage: 2Gi
-  accessModes:
-    - ReadWriteOnce
-  iscsi:
-    targetPortal: {{ .Values.sonarr.storage.iscsi.targetPortal }}
-    iqn: {{ .Values.sonarr.storage.iscsi.iqn }}
-    lun: 0
-    fsType: "ext4"
-    initiatorName: {{ .Values.sonarr.storage.iscsi.initiatorName }}
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: sonarr-media-nfs
-  namespace: media
-spec:
-  capacity:
-    storage: 1Mi
-  accessModes:
-    - ReadWriteOnce
-  nfs:
-    server: {{ .Values.sonarr.storage.nfs.server }}
-    path: {{ .Values.sonarr.storage.nfs.path }}
-  mountOptions:
-    - nfsvers=3
