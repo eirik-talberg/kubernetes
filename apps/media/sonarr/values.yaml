@@ -15,10 +15,10 @@ sonarr:
     config:
       volumeName: sonarr-config-iscsi
       size: 2Gi
-      storageClass: ""
+      storageClass: "-"
     media:
       enabled: true
       size: 1Mi
       volumeName: sonarr-media-nfs
       mountPath: /media
-      storageClass: ""
+      storageClass: "-"
