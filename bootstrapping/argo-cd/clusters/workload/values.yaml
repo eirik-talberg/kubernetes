@@ -6,11 +6,3 @@ spec:
     targetRevision: HEAD
 sonarr:
   version: 11.0.45
-  storage:
-    iscsi:
-      targetPortal: 10.0.69.10:3260
-      iqn: iqn.2018-11.no.taldev.unraid:sonarr-config
-      initiatorName: iqn.2018-11.no.taldev.k8s:sonarr-config
-    nfs:
-      server: 10.0.69.10
-      path: "/mnt/user/Video/Serier"
