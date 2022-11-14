@@ -16,6 +16,7 @@ sonarr:
       volumeName: sonarr-config-iscsi
       size: 2Gi
     media:
+      enabled: true
       size: 1Mi
       volumeName: sonarr-media-nfs
       mountPath: /media
