@@ -14,5 +14,8 @@ sonarr:
   persistence:
     config:
       volumeName: sonarr-config-iscsi
+      size: 2Gi
     media:
+      size: 1Mi
       volumeName: sonarr-media-nfs
+      mountPath: /media
