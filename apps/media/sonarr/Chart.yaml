@@ -5,3 +5,7 @@ type: application
 
 version: 0.1.0
 appVersion: "1.0"
+dependencies:
+  - name: TrueCharts/sonarr
+    version: 12.0.2
+    repository: https://charts.truecharts.org

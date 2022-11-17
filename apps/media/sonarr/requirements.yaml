@@ -1,4 +1,0 @@
-dependencies:
-  - name: sonarr
-    version: 12.0.2
-    repository: https://charts.truecharts.org
