@@ -1,5 +1,7 @@
 sonarr:
   TZ: Europe/Oslo
+  portal:
+    enabled: false
   ingress:
     main:
       enabled: true
