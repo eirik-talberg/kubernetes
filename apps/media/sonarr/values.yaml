@@ -1,26 +1,48 @@
-sonarr:
+image:
+  repository: ghcr.io/onedr0p/sonarr
+
+env:
   TZ: Europe/Oslo
-  portal:
-    enabled: false
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: kong
-      hosts:
-        - host: "sonarr.taldev.no"
-          paths:
-            - path: /
-              service:
-                name: sonarr
-                port: 8989
-  persistence:
-    config:
-      volumeName: sonarr-config-iscsi
-      size: 2Gi
-      storageClass: "-"
-    media:
-      enabled: true
-      size: 1Mi
-      volumeName: sonarr-media-nfs
-      mountPath: /media
-      storageClass: "-"
+
+
+
+main:
+  enabled: true
+  ingressClassName: kong
+  hosts:
+    - host: "sonarr.taldev.no"
+      paths:
+        - path: /
+          service:
+            name: sonarr
+            port: 8989
+persistence:
+  config:
+    enabled: true
+    type: pvc
+    existingClaim: sonarr-config-iscsi
+  media:
+    type: pvc
+    enabled: true
+    existingClaim: sonarr-media-nfs
+
+probes:
+  liveness:
+    enabled: true
+    ## Set this to true if you wish to specify your own livenessProbe
+    custom: true
+    ## The spec field contains the values for the default livenessProbe.
+    ## If you selected custom: true, this field holds the definition of the livenessProbe.
+    spec:
+      exec:
+        command:
+        - /usr/bin/env
+        - bash
+        - -c
+        - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\> && while
+          read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
+      failureThreshold: 5
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 10
