@@ -1,0 +1,17 @@
+vault:
+  standalone:
+    enabled: true
+  server:
+    ingress:
+      enabled: true
+      ingressClassName: "kong"
+      pathType: Prefix
+      activeService: true
+      hosts:
+        - host: vault.taldev.no
+          paths: 
+          - path: /
+            backend:
+              service: vault
+              port:
+                number: 8200
