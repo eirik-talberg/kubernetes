@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: vault-prod
-  namespace: prod
+  namespace: argo-cd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
