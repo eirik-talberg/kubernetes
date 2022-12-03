@@ -10,8 +10,8 @@ vault:
       hosts:
         - host: vault.taldev.no
           paths: 
-          - path: /*
-            backend:
-              service: vault-prod
-              port:
-                number: 8200
+            - path: /*
+              backend:
+                service: vault-prod
+                port:
+                  number: 8200
