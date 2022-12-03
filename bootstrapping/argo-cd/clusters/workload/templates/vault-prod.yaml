@@ -17,6 +17,7 @@ spec:
     helm:
       releaseName: postgresql
       parameters:
-        auth.postgresPassword: changeit
+        - name: auth.postgresPassword
+          value: changeit
   syncPolicy:
     automated: {}
