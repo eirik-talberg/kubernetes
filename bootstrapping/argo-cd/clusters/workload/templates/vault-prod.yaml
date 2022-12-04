@@ -11,13 +11,8 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    chart: postgresql
-    repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 12.1.3
-    helm:
-      releaseName: postgresql
-      parameters:
-        - name: auth.postgresPassword
-          value: changeit
+    path: infrastructure/vault/chart
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
   syncPolicy:
     automated: {}
