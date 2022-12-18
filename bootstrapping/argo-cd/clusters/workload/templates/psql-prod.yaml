@@ -19,5 +19,9 @@ spec:
       parameters:
         - name: auth.postgresPassword
           value: changeit
+        - name: auth.username
+          value: vault
+        - name: auth.password
+          value: changeit
   syncPolicy:
     automated: {}
