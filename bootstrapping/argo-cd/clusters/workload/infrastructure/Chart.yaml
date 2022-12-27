@@ -1,6 +1,6 @@
 apiVersion: v2
 name: workload-infrastructure
-description: Applications
+description: Workload infrastructure
 
 type: application
 version: 0.1.0
