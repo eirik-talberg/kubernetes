@@ -1,5 +1,6 @@
 #Workaround template until values-based works
-{{- $serviceName := include "vault.fullname" . -}}
+{{- $serviceName := include "vault.fullname" . }}
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
