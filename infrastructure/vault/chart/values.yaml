@@ -1,3 +1,7 @@
 vault:
   standalone:
     enabled: true
+server:
+  ingress:
+    enbled: true
+    ingressClassName: "kong"
