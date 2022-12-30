@@ -53,7 +53,7 @@ probes:
 storage:
   config:
     targetPortal: nas.g69.io:3260
-    iqn: iqn.2022-11.io.g69.nas:kube-storage
+    iqn: iqn.2022-11.io.g69.nas:sonarr
     lun: 0
     fsType: "ext4"
     initiatorName: iqn.2022-11.io.g69.k8s:sonarr
