@@ -10,4 +10,4 @@ spec:
   resources:
     requests:
       storage: 1Mi
-  volumeName: {{ Release.Name }}-media-nfs
+  volumeName: {{ .Release.Name }}-media-nfs
