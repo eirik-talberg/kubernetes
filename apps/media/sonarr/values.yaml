@@ -53,10 +53,10 @@ probes:
 storage:
   config:
     targetPortal: 10.0.69.10:3260 #Must be IP for mounting to work
-    iqn: iqn.2003-01.org.linux-iscsi.dis.x8664:sn.952ba8757e0c
+    iqn: iqn.2022-11.io.g69.nas:kube-storage
     lun: 0
     fsType: "ext4"
-    initiatorName: iqn.2022-11.io.g69.k8s:sonarr-config
+    initiatorName: iqn.2022-11.io.g69.k8s:sonarr
   media:
     server: nas.g69.io
     path: /mnt/user/Video/Serier
