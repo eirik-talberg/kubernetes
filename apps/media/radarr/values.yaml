@@ -1,32 +1,29 @@
 image:
-  repository: ghcr.io/onedr0p/sonarr
+  repository: ghcr.io/onedr0p/radarr
 env:
   TZ: Europe/Oslo
 service:
   main:
     ports:
       http:
-        port: 8989
-controller:
-  type: statefulset
+        port: 7878
 ingress:
   main:
     enabled: true
     ingressClassName: kong
     hosts:
-      - host: "sonarr.taldev.no"
+      - host: "radarr.taldev.no"
         paths:
           - path: /
             service:
-              name: sonarr
-              port: 8989
+              name: radarr
+              port: 7878
 persistence:
   config:
     enabled: true
   media:
-    type: pvc
     enabled: true
-    existingClaim: sonarr-media-nfs
+    existingClaim: radarr-media-nfs
 
 probes:
   liveness:
@@ -41,7 +38,7 @@ probes:
         - /usr/bin/env
         - bash
         - -c
-        - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\> && while
+        - curl --fail localhost:7878/api/v3/system/status?apiKey=`IFS=\> && while
           read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
       failureThreshold: 5
       initialDelaySeconds: 60
@@ -53,4 +50,3 @@ storage:
   media:
     server: nas.g69.io
     path: /mnt/user/Video/Serier
-

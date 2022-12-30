@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Release.Name }}-media-nfs
+  namespace: {{ .Release.Namespace }}
+spec:
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server: {{ .Values.storage.media.server }}
+    path: {{ .Values.storage.media.path }}
+  mountOptions:
+    - nfsvers=3
