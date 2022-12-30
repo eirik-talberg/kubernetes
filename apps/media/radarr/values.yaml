@@ -7,6 +7,8 @@ service:
     ports:
       http:
         port: 7878
+controller:
+  type: statefulset
 ingress:
   main:
     enabled: true
