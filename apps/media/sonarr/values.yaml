@@ -8,6 +8,8 @@ service:
     ports:
       http:
         port: 8989
+controller:
+  type: statefulset
 ingress:
   main:
     enabled: true
@@ -22,8 +24,6 @@ ingress:
 persistence:
   config:
     enabled: true
-    type: pvc
-    existingClaim: sonarr-config-iscsi
   media:
     type: pvc
     enabled: true
@@ -51,12 +51,6 @@ probes:
       timeoutSeconds: 10
 
 storage:
-  config:
-    targetPortal: 10.0.69.10:3260 #Must be IP for mounting to work
-    iqn: iqn.2022-11.io.g69.nas:kube-storage
-    lun: 0
-    fsType: "ext4"
-    initiatorName: iqn.2022-11.io.g69.k8s:sonarr
   media:
     server: nas.g69.io
     path: /mnt/user/Video/Serier

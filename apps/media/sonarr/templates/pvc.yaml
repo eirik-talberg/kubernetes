@@ -11,17 +11,3 @@ spec:
     requests:
       storage: 1Mi
   volumeName: sonarr-media-nfs
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: sonarr-config-iscsi
-  namespace: media
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: ""
-  resources:
-    requests:
-      storage: 1Mi
-  volumeName: sonarr-config-iscsi
