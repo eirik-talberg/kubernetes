@@ -1,0 +1,60 @@
+image:
+  repository: ghcr.io/onedr0p/plex
+env:
+  TZ: Europe/Oslo
+service:
+  main:
+    ports:
+      http:
+        port: 32400
+controller:
+  type: statefulset
+ingress:
+  main:
+    enabled: true
+    ingressClassName: kong
+    hosts:
+      - host: "plex.taldev.no"
+        paths:
+          - path: /
+            service:
+              name: radarr
+              port: 32400
+persistence:
+  config:
+    enabled: true
+  movies:
+    enabled: true
+    existingClaim: plex-movies-nfs
+  tv:
+    enabled: true
+    existingClaim: plex-tv-nfs
+
+probes:
+  liveness:
+    enabled: true
+    ## Set this to true if you wish to specify your own livenessProbe
+    custom: true
+    ## The spec field contains the values for the default livenessProbe.
+    ## If you selected custom: true, this field holds the definition of the livenessProbe.
+    spec:
+      exec:
+        command:
+        - /usr/bin/env
+        - bash
+        - -c
+        - curl --fail localhost:7878/api/v3/system/status?apiKey=`IFS=\> && while
+          read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
+      failureThreshold: 5
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 10
+
+storage:
+  tv:
+    server: nas.g69.io
+    path: /mnt/user/Video/Serier
+  movies:
+    server: nas.g69.io
+    path: /mnt/user/Video/Filmer
