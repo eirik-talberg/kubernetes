@@ -53,10 +53,10 @@ probes:
 storage:
   config:
     targetPortal: nas.g69.io:3260
-    iqn: iqn.2022-11.io.g69.nas:sonarr
+    iqn: iqn.2003-01.org.linux-iscsi.dis.x8664:sn.952ba8757e0c
     lun: 0
     fsType: "ext4"
-    initiatorName: iqn.2022-11.io.g69.k8s:sonarr
+    initiatorName: iqn.2022-11.io.g69.k8s:sonarr-config
   media:
     server: nas.g69.io
     path: /mnt/user/Video/Serier
