@@ -18,7 +18,7 @@ ingress:
         paths:
           - path: /
             service:
-              name: radarr
+              name: plex
               port: 32400
 persistence:
   config:
