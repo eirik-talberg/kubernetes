@@ -1,5 +1,6 @@
 image:
   repository: ghcr.io/onedr0p/sonarr
+  tag: 3.0.9.1549
 env:
   TZ: Europe/Oslo
 service:
@@ -48,3 +49,15 @@ probes:
       periodSeconds: 10
       successThreshold: 1
       timeoutSeconds: 10
+
+storage:
+  config:
+    targetPortal: nas.g69.io:3260
+    iqn: iqn.2022-11.io.g69:kube-storage
+    lun: 0
+    fsType: "ext4"
+    initiatorName: iqn.2022-11.io.g69.k8s:apps
+  media:
+    server: nas.g69.io
+    path: /mnt/user/Video/Serier
+

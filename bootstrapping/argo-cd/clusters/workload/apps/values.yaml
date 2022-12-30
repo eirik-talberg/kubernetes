@@ -4,5 +4,3 @@ spec:
   source:
     repoURL: git@github.com:eirik-talberg/kubernetes
     targetRevision: HEAD
-sonarr:
-  version: 11.0.45
