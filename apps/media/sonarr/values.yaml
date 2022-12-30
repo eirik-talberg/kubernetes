@@ -56,7 +56,7 @@ storage:
     iqn: iqn.2022-11.io.g69.nas:kube-storage
     lun: 0
     fsType: "ext4"
-    initiatorName: iqn.2022-11.io.g69.k8s:apps
+    initiatorName: iqn.2022-11.io.g69.k8s:sonarr
   media:
     server: nas.g69.io
     path: /mnt/user/Video/Serier
