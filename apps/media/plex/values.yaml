@@ -3,6 +3,7 @@ image:
 env:
   TZ: Europe/Oslo
 service:
+  type: LoadBalancer
   main:
     ports:
       http:
