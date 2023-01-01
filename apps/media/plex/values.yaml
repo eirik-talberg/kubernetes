@@ -8,6 +8,30 @@ service:
     ports:
       http:
         port: 32400
+      dlna-udp:
+        port: 1900
+        protocol: UDP
+      bonjour:
+        port: 5353
+        protocol: UDP
+      companion:
+        port: 8324
+        protocol: TCP
+      gdm-1:
+        port: 32410
+        protocol: UDP
+      gdm-2: 
+        port: 32412
+        protocol: UDP
+      gdm-3: 
+        port: 32413
+        protocol: UDP
+      gdm-4: 
+        port: 32414
+        protocol: UDP
+      dlna-tcp:
+        port: 32469
+        protocol: TCP
 controller:
   type: statefulset
 ingress:
