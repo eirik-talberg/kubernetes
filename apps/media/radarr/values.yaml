@@ -50,5 +50,5 @@ probes:
 
 storage:
   media:
-    server: nas.g69.io
+    server: 10.0.69.10
     path: /mnt/user/Video/Filmer
